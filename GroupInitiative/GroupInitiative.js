@@ -246,15 +246,22 @@ var GroupInitiative = GroupInitiative || (function() {
         },
 
         buildInitDiceExpression = function(s){
+            var baseRoll;
+            if(state.GroupInitiative.config.initiativeTable) {
+                baseRoll = 't['+state.GroupInitiative.config.initiativeTable+']';
+            } else {
+                baseRoll = 'd'+state.GroupInitiative.config.dieSize;
+            }
+
             var stat=(''!== state.GroupInitiative.config.diceCountAttribute && s.character && getAttrByName(s.character.id, state.GroupInitiative.config.diceCountAttribute, 'current'));
             if(stat ) {
                 stat = (_.isString(stat) ? stat : stat+'');
                 if('0' !== stat) {
                     stat = stat.replace(/@\{([^\|]*?|[^\|]*?\|max|[^\|]*?\|current)\}/g, '@{'+(s.character.get('name'))+'|$1}');
-                    return '('+stat+')d'+state.GroupInitiative.config.dieSize;
+                    return '('+stat+')'+baseRoll;
                 }
-            } 
-            return state.GroupInitiative.config.diceCount+'d'+state.GroupInitiative.config.dieSize;
+            }
+            return state.GroupInitiative.config.diceCount+baseRoll;
         },
 
         rollers = {
@@ -463,6 +470,17 @@ var GroupInitiative = GroupInitiative || (function() {
         '</div>';
     },
 
+    getConfigOption_InitiativeTable = function() {
+        return '<div>'+
+            'Initiative rollable table is currently <b>'+
+                state.GroupInitiative.config.initiativeTable+
+            '</b>.  Set to empty to disable. '+
+            '<a href="!group-init-config --set-initiative-table|?{Rollable table name:|'+state.GroupInitiative.config.initiativeTable+'}">'+
+                'Set Initiative Table'+
+            '</a>'+
+        '</div>';
+    },
+
     getConfigOption_DiceCount = function() {
         return '<div>'+
             'Initiative Dice Count is currently <b>'+
@@ -560,6 +578,7 @@ var GroupInitiative = GroupInitiative || (function() {
             getConfigOption_DieSize() +
             getConfigOption_DiceCount() +
             getConfigOption_DiceCountAttribute() +
+            getConfigOption_InitiativeTable() +
             getConfigOption_MaxDecimal() +
             getConfigOption_AutoOpenInit() +
             getConfigOption_ReplaceRoll() +
@@ -920,6 +939,17 @@ var GroupInitiative = GroupInitiative || (function() {
         args = msg.content.split(/\s+--/);
         switch(args.shift()) {
             case '!group-init':
+
+                if(state.GroupInitiative.config.initiativeTable && !findObjs({type: 'rollabletable', name: state.GroupInitiative.config.initiativeTable}).length) {
+                    sendChat('!group-init', '/w gm ' +
+                            '<div style="padding:1px 3px;border: 1px solid #8B4513;background: #eeffee; color: #8B4513; font-size: 80%;">'+
+                                'Unknown initiative table: '+state.GroupInitiative.config.initiativeTable+'<br>'+
+                            '</div>'
+                        );
+                    sendChat('!group-init-config --set-initiative-table',getConfigOption_InitiativeTable());
+                    return;
+                }
+
                 if(args.length > 0) {
                     cmds=args.shift().split(/\s+/);
 
@@ -1547,6 +1577,20 @@ var GroupInitiative = GroupInitiative || (function() {
                             );
                             break;
 
+                        case 'set-initiative-table':
+                            if(opt[0].match(/^[A-Za-z0-9\-]*$/)) {
+                               state.GroupInitiative.config.initiativeTable=opt[0];
+                            } else {
+                                omsg='<div><b>Error:</b> Not a valid rollable table name: '+opt[0]+'</div>';
+                            }
+                            sendChat('','/w gm '+
+                                '<div style="border: 1px solid black; background-color: white; padding: 3px 3px;">'+
+                                    omsg+
+                                    getConfigOption_InitiativeTable()+
+                                '</div>'
+                            );
+                            break;
+
                         case 'set-max-decimal':
                             if(opt[0].match(/^\d+$/)) {
                                state.GroupInitiative.config.maxDecimal=parseInt(opt[0],10);
@@ -1664,7 +1708,6 @@ var GroupInitiative = GroupInitiative || (function() {
 
 on("ready",function(){
     'use strict';
-
         GroupInitiative.CheckInstall();
         GroupInitiative.RegisterEventHandlers();
 });
