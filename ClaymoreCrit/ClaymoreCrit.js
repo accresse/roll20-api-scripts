@@ -5,8 +5,8 @@
  * X type effects
  * X other locations
  * include other levels (i.e. sev 18=16,17,17)
- * roll bleeding
- * show damage type in results
+ * X roll bleeding
+ * X show damage type in results
  */
 var ClaymoreCrit = ClaymoreCrit || (function() {
     'use strict';
@@ -20,16 +20,16 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
             
         }
         for(var i=8; i<=15; i++) {
-        	effects[10][i]=effects[10][i].concat(['Always: -10 UP','Always: KD']);
-        	effects[1][i]=effects[1][i].concat(['Always: 1/2 move']);
-        	effects[3][i]=effects[3][i].concat(['Always: -10 attacks and fine motor OR -10 defense, agl, running, leg skills']);
-        	effects[6][i]=effects[6][i].concat(['Always: -10 attacks and fine motor']);
+        	effects[10][i]=['Always: -10 UP','Always: KD'].concat(effects[10][i]);
+        	effects[1][i]=['Always: 1/2 move'].concat(effects[1][i]);
+        	effects[3][i]=['Always: -10 attacks and fine motor OR -10 defense, agl, running, leg skills'].concat(effects[3][i]);
+        	effects[6][i]=['Always: -10 attacks and fine motor'].concat(effects[6][i]);
         }
         for(var i=16; i<=20; i++) {
-        	effects[10][i]=effects[10][i].concat(['Always: KO d4 days', 'Always: -20 UP']);
-        	effects[1][i]=effects[1][i].concat(['Always: -10 defense, agl, running, leg skills', 'Always: No move', 'Always: Stun 1 rd']);
-        	effects[3][i]=effects[3][i].concat(['Always: No attack', 'Always: 1/4 move', 'Always: Stun 1 rd']);
-        	effects[6][i]=effects[6][i].concat(['Always: Useless','Always: -10 attacks and fine motor','Always: Stun 1 rd']);
+        	effects[10][i]=['Always: KO [[d4]] days', 'Always: -20 UP'].concat(effects[10][i]);
+        	effects[1][i]=['Always: -10 defense, agl, running, leg skills', 'Always: No move', 'Always: Stun 1 rd'].concat(effects[1][i]);
+        	effects[3][i]=['Always: No attack', 'Always: 1/4 move', 'Always: Stun 1 rd'].concat(effects[3][i]);
+        	effects[6][i]=['Always: Useless','Always: -10 attacks and fine motor','Always: Stun 1 rd'].concat(effects[6][i]);
         }
         effects[2]=effects[1];
         effects[4]=effects[3];
@@ -105,43 +105,43 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'2':['-10 UP'],
     		'3':['KD'],
     		'4':['-5 UP','KD'],
-    		'5':['Dizzy (-20 UP d4 rds)'],
-    		'6':['Stun d4 rds'],
-    		'7':['KO d4 rds'],
-    		'8':['Deaf 2d4 rds'],
+    		'5':['Dizzy (-20 UP [[d4]] rds)'],
+    		'6':['Stun [[d4]] rds'],
+    		'7':['KO [[d4]] rds'],
+    		'8':['Deaf [[2d4]] rds'],
     		'9':['-10 UP', 'no KD', 'Severe'],
     		'10':['Blind 1 eye (permanent, -10 BWS)'],
     		'11':['Blind'],
-    		'12':['-10 UP', 'Stun 3d4 rds'],
+    		'12':['-10 UP', 'Stun [[3d4]] rds'],
     		'13':['-10 UP','KD'],
     		'14':['-20 UP','KD'],
-    		'15':['KO 2d6 mins'],
-    		'16':['-20 UP (permanent)','Stun 2d6 rds'],
-    		'17':['-d4 Rc, PS, or Wit (permanent)'],
+    		'15':['KO [[2d6]] mins'],
+    		'16':['-20 UP (permanent)','Stun [[2d6]] rds'],
+    		'17':['-[[d4]] [[1t[crit-head-stat]]] (permanent)'],
     		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in 2d3 rds'],
+    		'19':['${16}','Death in [[2d3]] rds'],
     		'20':['${16}','Instant death'],
     	},
     	'1':{
     		'2':['None'],
     		'3':['-25 run check'],
     		'4':['-5 defense, agl, running, leg skills'],
-    		'5':['3/4 move 2d4 mins'],
-    		'6':['3/4 move 2d4 mins AND -5 defense, agl, running, leg skills'],
+    		'5':['3/4 move [[2d4]] mins'],
+    		'6':['3/4 move [[2d4]] mins AND -5 defense, agl, running, leg skills'],
     		'7':['Useless (negated by Tend Wounds) AND -10 defense, agl, running, leg skills (negated by Tend Wounds)'],
     		'8':['-5 defense, agl, running, leg skills'],
     		'9':['-10 defense, agl, running, leg skills'],
     		'10':['-10 defense, agl, running, leg skills','KD'],
     		'11':['1/2 move','KD'],
-    		'12':['-10 defense, agl, running, leg skills','Stun 2d4 rds'],
+    		'12':['-10 defense, agl, running, leg skills','Stun [[2d4]] rds'],
     		'13':['-10 defense, agl, running, leg skills (negated by Tend Wounds)', '-10 defense, agl, running, leg skills (permanent)','KD'],
     		'14':['-10 defense, agl, running, leg skills','Stun 1 rd'],
     		'15':['No move', '-10 UP'],
-    		'16':['-20 defense, agl, running, leg skills (permanent)','Stun 2d4 rds'],
+    		'16':['-20 defense, agl, running, leg skills (permanent)','Stun [[2d4]] rds'],
     		'17':['1/2 move (permanent)'],
     		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in 2d6 rds'],
-    		'20':['${18}','Death in 2d3 rds'],
+    		'19':['${16}','Death in [[2d6]] rds'],
+    		'20':['${18}','Death in [[2d3]] rds'],
     	},
     	'3':{
     		'2':['None'],
@@ -152,17 +152,17 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'7':['-5 attacks and fine motor OR -5 defense, agl, running, leg skills','KD'],
     		'8':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills'],
     		'9':['KD'],
-    		'10':['Stun d6 rds'],
+    		'10':['Stun [[d6]] rds'],
     		'11':['-1 attack','KD'],
-    		'12':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills','Stun 2d4 rds'],
-    		'13':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills','Stun d6 rds'],
+    		'12':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills','Stun [[2d4]] rds'],
+    		'13':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills','Stun [[d6]] rds'],
     		'14':['(-10,-10) attacks and fine motor OR (-10,-10) defense, agl, running, leg skills'],
-    		'15':['-1 attack','KO 2d4 rds'],
-    		'16':['-20 attacks and fine motor OR -20 defense, agl, running, leg skills (permanent)','Stun 2d4 rds'],
-    		'17':['-d4 Str, Con, or Dex'],
+    		'15':['-1 attack','KO [[2d4]] rds'],
+    		'16':['-20 attacks and fine motor OR -20 defense, agl, running, leg skills (permanent)','Stun [[2d4]] rds'],
+    		'17':['-[[d4]] [[1t[crit-body-stat]]]'],
     		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in 2d6 rds'],
-    		'20':['${18}','Death in 2d3 rds'],
+    		'19':['${16}','Death in [[2d6]] rds'],
+    		'20':['${18}','Death in [[2d3]] rds'],
     	},
     	'6':{
     		'2':['None'],
@@ -175,15 +175,15 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'9':['-10 attacks and fine motor','Drop item'],
     		'10':['-5 attacks and fine motor','-10 attacks and fine motor (negated by Tend Wounds)'],
     		'11':['Useless'],
-    		'12':['-10 attacks and fine motor','Stun 2d4 rds'],
+    		'12':['-10 attacks and fine motor','Stun [[2d4]] rds'],
     		'13':['-15 attacks and fine motor (negated by Tend Wounds)','-10 attacks and fine motor (permanent)'],
     		'14':['Useless','-10 UP'],
     		'15':['Useless','-10 UP','KD'],
-    		'16':['-20 attacks and fine motor (permanent)','Stun 2d4 rds'],
+    		'16':['-20 attacks and fine motor (permanent)','Stun [[2d4]] rds'],
     		'17':['Useless (permanent)'],
     		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in 2d6 rds'],
-    		'20':['${18}','Death in 2d3 rds'],
+    		'19':['${16}','Death in [[2d6]] rds'],
+    		'20':['${18}','Death in [[2d3]] rds'],
     	}
     },
     //0-100 = Minor, 101-200 = Major, 201-300 = Severe
@@ -213,7 +213,7 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     	'S': {'bleeding':function(level){ return level; }, 'effects': [] },
     	'P': {'bleeding':function(level){ return Math.min(level+50,300); }, 'effects': [] },
     	'A': {'bleeding':function(level){ return Math.max(level-100,0); }, 'effects': ['25% chance blind'] },
-    	'C': {'bleeding':function(level){ return 0; }, 'effects': ['25% chance -10 attacks and fine motor 2d6 rds'] },
+    	'C': {'bleeding':function(level){ return 0; }, 'effects': ['25% chance -10 attacks and fine motor [[2d6]] rds'] },
     	'E': {'bleeding':function(level){ return Math.max(level-200,0); }, 'effects': ['10% chance on fire'] },
     	'F': {'bleeding':function(level){ return Math.max(level-200,0); }, 'effects': ['25% chance on fire'] }
     },
@@ -319,7 +319,7 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     	else {
     	    var location = ('location' in command) ? command['location'] : 'd10';
     	    var severity = ('severity' in command) ? command['severity'] : calculateSeverity(command);
-            sendChat('ClaymoreCrit',command['type']+': severity=[['+severity+']] location=[['+location+']]', critFormatter);
+            sendChat('ClaymoreCrit',command['type']+': severity=[['+severity+']] location=[['+location+']] bleeding=[[d100]]', critFormatter);
     	}
     },
     claymoreCritUsage = function() {
@@ -327,27 +327,52 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     },
     critFormatter = function(ops) {
         log(ops);
+        //parse message
+        var type = ops[0].content.charAt(0).toUpperCase();
         var severity = Math.min(Math.max(ops[0].inlinerolls[0].results.total,2),20);
         var location = ops[0].inlinerolls[1].results.total;
-        var type = ops[0].content.charAt(0).toUpperCase();
+        var bleedingRoll = ops[0].inlinerolls[2].results.total;
+        log("bleedingRoll: "+bleedingRoll);
+        
+        //base critical effects
         var critEffects = [].concat(effects[location][severity]);
-        var bleedingEffect = typeMod[type]['bleeding'](bleeding[severity]);
-        if(bleedingEffect>200) {
-            critEffects.push((bleedingEffect-200)+'% Severe Bleeding');
-        }
-        else if(bleedingEffect>100) {
-            critEffects.push((bleedingEffect-100)+'% Major Bleeding');
-        }
-        else if(bleedingEffect>0) {
-            critEffects.push(bleedingEffect+'% Minor Bleeding');
-        }
+
+        //additional effects based on damage type
         var typeEffects = typeMod[type]['effects'];
         critEffects = critEffects.concat(typeEffects);
 
+        //calculate severity of bleeding
+        var bleedingDescription;
+        var bleedingSeverity = bleeding[severity];
+        log("bleedingSeverity: "+bleedingSeverity);
+        var bleedingSeverityMod = typeMod[type]['bleeding'](bleedingSeverity);
+        log("bleedingSeverityMod: "+bleedingSeverityMod);
+        var bleedingChance = bleedingSeverityMod % 100;
+        log("bleedingChance: "+bleedingChance);
+        if(bleedingSeverityMod>0 && bleedingChance==0) {
+        	bleedingChance=100;
+        }
+        log("bleedingChance: "+bleedingChance);
+        if(bleedingRoll>bleedingChance) {
+        	bleedingSeverityMod=Math.max(0,bleedingSeverityMod-100);
+        }
+        log("bleedingSeverityMod: "+bleedingSeverityMod);
+        if(bleedingSeverityMod>200) {
+        	bleedingDescription='Severe';
+        }
+        else if(bleedingSeverityMod>100) {
+        	bleedingDescription='Major';
+        }
+        else if(bleedingSeverityMod>0) {
+        	bleedingDescription='Minor';
+        }
+        
         var message = '<div style="border: 1px solid #888;border-radius:5px; padding: 1px 3px;background-color:#ff9999">';
         message += '<div><b>Summary:</b> Crit is a '+formatDiceRoll(ops[0].inlinerolls[0])+' in the '+formatDiceRoll(ops[0].inlinerolls[1])+'</div>';
+        message += '<div><b>Type:</b> '+type+'</div>';
         message += '<div><b>Location:</b> '+locations[location]+'</div>';
         message += '<div><b>Effects:</b> '+formatEffects(critEffects)+'</div>'
+        message += '<div><b>Bleeding '+formatDiceRoll(ops[0].inlinerolls[2])+':</b> '+bleedingDescription+'</div>';
         message += '</div>'
     	claymoreSendChat('ClaymoreCrit',message);
     },
