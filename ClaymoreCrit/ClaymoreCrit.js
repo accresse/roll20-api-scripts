@@ -1,6 +1,6 @@
 /**
  * TODO:
- * add roll for the "OR" effects
+ * X add roll for the "OR" effects
  * add required crit rollable tables
  */
 var ClaymoreCrit = ClaymoreCrit || (function() {
@@ -11,7 +11,6 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
 
     checkInstall = function() {    
         log('-=> ClaymoreCrit v'+version+' <=-');
-        
         
         //add prior level effects
         effects[10][18]=effects[10][16].concat(effects[10][17]).concat(effects[10][17]);
@@ -34,7 +33,7 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
         for(var i=8; i<=15; i++) {
         	effects[10][i]=['Always: -10 UP','Always: KD'].concat(effects[10][i]);
         	effects[1][i]=['Always: 1/2 move'].concat(effects[1][i]);
-        	effects[3][i]=['Always: -10 attacks and fine motor OR -10 defense, agl, running, leg skills'].concat(effects[3][i]);
+        	effects[3][i]=['Always: -10 [[1t[claymore-crit-body-penalty]]]'].concat(effects[3][i]);
         	effects[6][i]=['Always: -10 attacks and fine motor'].concat(effects[6][i]);
         }
         for(var i=16; i<=20; i++) {
@@ -131,7 +130,7 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'14':['-20 UP','KD'],
     		'15':['KO [[2d6]] mins'],
     		'16':['-20 UP (permanent)','Stun [[2d6]] rds'],
-    		'17':['-[[d4]] [[1t[crit-head-stat]]] (permanent)'],
+    		'17':['-[[d4]] [[1t[claymore-crit-head-stat]]] (permanent)'],
     		'18':[],
     		'19':['Death in [[2d3]] rds'],
     		'20':['Instant death'],
@@ -161,19 +160,19 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'2':['None'],
     		'3':['None'],
     		'4':['20 run check'],
-    		'5':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills'],
+    		'5':['-10 [[1t[claymore-crit-body-penalty]]]'],
     		'6':['KD'],
-    		'7':['-5 attacks and fine motor OR -5 defense, agl, running, leg skills','KD'],
-    		'8':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills'],
+    		'7':['-5 [[1t[claymore-crit-body-penalty]]]','KD'],
+    		'8':['-10 [[1t[claymore-crit-body-penalty]]]'],
     		'9':['KD'],
     		'10':['Stun [[d6]] rds'],
     		'11':['-1 attack','KD'],
-    		'12':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills','Stun [[2d4]] rds'],
-    		'13':['-10 attacks and fine motor OR -10 defense, agl, running, leg skills','Stun [[d6]] rds'],
-    		'14':['(-10,-10) attacks and fine motor OR (-10,-10) defense, agl, running, leg skills'],
+    		'12':['-10 [[1t[claymore-crit-body-penalty]]]','Stun [[2d4]] rds'],
+    		'13':['-10 [[1t[claymore-crit-body-penalty]]]','Stun [[d6]] rds'],
+    		'14':['(-10,-10) [[1t[claymore-crit-body-penalty]]]'],
     		'15':['-1 attack','KO [[2d4]] rds'],
-    		'16':['-20 attacks and fine motor OR -20 defense, agl, running, leg skills (permanent)','Stun [[2d4]] rds'],
-    		'17':['-[[d4]] [[1t[crit-body-stat]]]'],
+    		'16':['-20 [[1t[claymore-crit-body-penalty]]] (permanent)','Stun [[2d4]] rds'],
+    		'17':['-[[d4]] [[1t[claymore-crit-body-stat]]]'],
     		'18':[],
     		'19':['Death in [[2d6]] rds'],
     		'20':['Death in [[2d3]] rds'],
