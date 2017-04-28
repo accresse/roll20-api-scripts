@@ -1,12 +1,7 @@
 /**
  * TODO:
- * X energy crits
- * X bleeding
- * X type effects
- * X other locations
- * include other levels (i.e. sev 18=16,17,17)
- * X roll bleeding
- * X show damage type in results
+ * add roll for the "OR" effects
+ * add required crit rollable tables
  */
 var ClaymoreCrit = ClaymoreCrit || (function() {
     'use strict';
@@ -16,9 +11,26 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
 
     checkInstall = function() {    
         log('-=> ClaymoreCrit v'+version+' <=-');
-        for(var sev=18; sev<=20; sev++) {
-            
-        }
+        
+        
+        //add prior level effects
+        effects[10][18]=effects[10][16].concat(effects[10][17]).concat(effects[10][17]);
+        effects[10][19]=effects[10][16].concat(effects[10][19]);
+        effects[10][20]=effects[10][16].concat(effects[10][20]);
+        
+        effects[1][18]=effects[1][16].concat(effects[1][17]).concat(effects[1][17]);
+        effects[1][19]=effects[1][16].concat(effects[1][19]);
+        effects[1][20]=effects[1][18].concat(effects[1][20]);
+        
+        effects[3][18]=effects[3][16].concat(effects[3][17]).concat(effects[3][17]);
+        effects[3][19]=effects[3][16].concat(effects[3][19]);
+        effects[3][20]=effects[3][18].concat(effects[3][20]);
+        
+        effects[6][18]=effects[6][16].concat(effects[6][17]).concat(effects[6][17]);
+        effects[6][19]=effects[6][16].concat(effects[6][19]);
+        effects[6][20]=effects[6][18].concat(effects[6][20]);
+        
+        //add 'always effects'
         for(var i=8; i<=15; i++) {
         	effects[10][i]=['Always: -10 UP','Always: KD'].concat(effects[10][i]);
         	effects[1][i]=['Always: 1/2 move'].concat(effects[1][i]);
@@ -31,6 +43,8 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
         	effects[3][i]=['Always: No attack', 'Always: 1/4 move', 'Always: Stun 1 rd'].concat(effects[3][i]);
         	effects[6][i]=['Always: Useless','Always: -10 attacks and fine motor','Always: Stun 1 rd'].concat(effects[6][i]);
         }
+        
+        //copy effects to duplicate location rolls
         effects[2]=effects[1];
         effects[4]=effects[3];
         effects[5]=effects[3];
@@ -118,9 +132,9 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'15':['KO [[2d6]] mins'],
     		'16':['-20 UP (permanent)','Stun [[2d6]] rds'],
     		'17':['-[[d4]] [[1t[crit-head-stat]]] (permanent)'],
-    		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in [[2d3]] rds'],
-    		'20':['${16}','Instant death'],
+    		'18':[],
+    		'19':['Death in [[2d3]] rds'],
+    		'20':['Instant death'],
     	},
     	'1':{
     		'2':['None'],
@@ -139,9 +153,9 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'15':['No move', '-10 UP'],
     		'16':['-20 defense, agl, running, leg skills (permanent)','Stun [[2d4]] rds'],
     		'17':['1/2 move (permanent)'],
-    		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in [[2d6]] rds'],
-    		'20':['${18}','Death in [[2d3]] rds'],
+    		'18':[],
+    		'19':['Death in [[2d6]] rds'],
+    		'20':['Death in [[2d3]] rds'],
     	},
     	'3':{
     		'2':['None'],
@@ -160,9 +174,9 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'15':['-1 attack','KO [[2d4]] rds'],
     		'16':['-20 attacks and fine motor OR -20 defense, agl, running, leg skills (permanent)','Stun [[2d4]] rds'],
     		'17':['-[[d4]] [[1t[crit-body-stat]]]'],
-    		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in [[2d6]] rds'],
-    		'20':['${18}','Death in [[2d3]] rds'],
+    		'18':[],
+    		'19':['Death in [[2d6]] rds'],
+    		'20':['Death in [[2d3]] rds'],
     	},
     	'6':{
     		'2':['None'],
@@ -181,9 +195,9 @@ var ClaymoreCrit = ClaymoreCrit || (function() {
     		'15':['Useless','-10 UP','KD'],
     		'16':['-20 attacks and fine motor (permanent)','Stun [[2d4]] rds'],
     		'17':['Useless (permanent)'],
-    		'18':['${16}','${17}','${17}'],
-    		'19':['${16}','Death in [[2d6]] rds'],
-    		'20':['${18}','Death in [[2d3]] rds'],
+    		'18':[],
+    		'19':['Death in [[2d6]] rds'],
+    		'20':['Death in [[2d3]] rds'],
     	}
     },
     //0-100 = Minor, 101-200 = Major, 201-300 = Severe
